@@ -13,4 +13,4 @@ images:
   newTag: v1
 - name: gooapp
   newName: josealceu/argocd
-  newTag: d23bfbe621e6c4528d8cdf4075707296bd82ab53
+  newTag: af028fbad48b1076913d1ce93304debf296beace
