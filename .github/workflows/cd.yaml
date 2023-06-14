@@ -34,11 +34,11 @@ jobs:
                     cd k8s
                     kustomize edit set image gooapp=josealceu/argocd:${{github.sha }}
                     cat kustomization.yaml
-            -   name:
+            -   name: Push Git Commit
                 run: |
                     git config --local user.email "action@github.com"
                     git config --local user.name "Deploy Action"
-                    git config --am "change image tag"
+                    git config -am "change image tag"
             
             -   name: push
                 uses: ad-m/github-push-action@master
