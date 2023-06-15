@@ -10,7 +10,7 @@ namespace: goapp
 images:
 - name: goapp
   newName: josealceu/argocd
-  newTag: 841e1751133b235ed0753b4da87011965607c1e6
+  newTag: b719e88b2eee1e28160126a9a4ae408ddc7ae47f
 - name: gooapp
   newName: josealceu/argocd
   newTag: af028fbad48b1076913d1ce93304debf296beace
