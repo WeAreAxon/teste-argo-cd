@@ -5,27 +5,12 @@ on:
 jobs:
   retrieve-secret:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
+
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
         with:
-            exportToken: true
-            method: jwt
-            url: https://vault.axonlab.com.br
-            role: myproject-production
-            secrets: secret/data/production/teste_jos_se npmtoken
+            url: https://vault.axonlab.com.br/
+            token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
             
-      - name: Use secret from Vault
-        run: |
-          # This step has access to the secret retrieved above; see hashicorp/vault-action for more details.
-
-      - name: Revoke token
-        # This step always runs at the end regardless of the previous steps result
-        if: always()
-        run: |
-          curl -X POST -sv -H "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
-            https://vault.axonlab.com.br/v1/auth/token/revoke-self
-                
+   
