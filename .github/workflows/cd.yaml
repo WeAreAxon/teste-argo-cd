@@ -15,8 +15,8 @@ jobs:
             exportToken: true
             method: jwt
             url: https://vault.axonlab.com.br
-            role: deployment-processes-policy-teste
-            secrets: deploymentServer
+            role: deployment-processes-policy
+            secrets: secret/data/apikeys/deploymentServer
 
       - name: Use secret from Vault
         run: |
