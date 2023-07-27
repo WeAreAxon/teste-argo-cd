@@ -17,16 +17,11 @@ jobs:
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
                     secret/production teste | TESTE
-      - name: kustomize
-        uses: imranismail/setup-kustomize@v1
-        with:
-            kustomize_version: v3.6.1
+
       - name: Exibir a secret
         run: |  
-            echo "Minha linda secret: $TESTE"
-            cd k8s
-            kustomize edit set image goapp=josealceu/argocd:$TESTE
-            cat kustomization.yaml
+            echo "Minha linda secret: $TESTE" >> text.txt
+            cat text.txt
       - name: Push Git Commit
         run: |
                     git config --local user.email "action@github.com"
