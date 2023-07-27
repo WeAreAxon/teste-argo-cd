@@ -13,5 +13,5 @@ jobs:
             url: https://vault.axonlab.com.br
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
-                    secrets/data/production teste | TESTE
+                    secret/data/production teste | TESTE
                     
