@@ -1,29 +1,33 @@
+
 name: CD
 on:
     push:
             branches: master
+env:
+  hashiUrl: https://vault.axonlab.com.br/
+  roleName: myproject-production
 jobs:
-  retrieve-secret:
+  hello:
     runs-on: ubuntu-latest
+    name: Says Hello World
     permissions:
-      id-token: write
-      contents: read
+        contents: read
+        id-token: write
     steps:
-      - name: Retrieve secret from Vault
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-            exportToken: true
-            method: jwt
-            url: https://vault.axonlab.com.br
-            role: deployment-processes-policy
-            secrets: secrets/data/apikeys/deploymentServer
-
-      - name: Use secret from Vault
-        run: |
-          # This step has access to the secret retrieved above; see hashicorp/vault-action for more details.
-      - name: Revoke token
-        # This step always runs at the end regardless of the previous steps result
-        if: always()
-        run: |
-          curl -X POST -sv -H "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
-            https://vault.axonlab.com.br/v1/auth/token/revoke-self
+    - name: Say it
+      run: echo "Hello World"
+    - name: perform token run
+      run: |
+        echo $(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=gha-medium" | base64)
+      shell: bash
+    - name: Retreive Secrets
+      id: retrieve-secrets
+      uses: hashicorp/vault-action@v2.4.1
+      with:
+        url: ${{ env.hashiUrl }}
+        role: ${{ env.roleName }}
+        method: jwt
+        tlsSkipVerify: false
+        exportEnv: true
+        secrets: |
+          secret/data/production teste | DEPLOYMENT_KEY
