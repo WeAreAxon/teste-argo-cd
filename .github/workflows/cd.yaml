@@ -3,7 +3,7 @@ name: Minha Action do GitHub
 on:
   push:
     branches:
-      - main  # Ajuste de acordo com a branch desejada
+      - master  # Ajuste de acordo com a branch desejada
 
 jobs:
   buscar-secret:
