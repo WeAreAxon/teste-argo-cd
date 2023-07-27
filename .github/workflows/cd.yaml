@@ -16,7 +16,7 @@ jobs:
             method: jwt
             url: https://vault.axonlab.com.br
             role: deployment-processes-policy
-            secrets: secret/data/apikeys
+            secrets: secret/apikeys/deploymentServer
 
       - name: Use secret from Vault
         run: |
