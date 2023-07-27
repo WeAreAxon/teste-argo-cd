@@ -6,6 +6,9 @@ jobs:
   retrieve-secret:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.7.3
         with:
@@ -21,6 +24,17 @@ jobs:
             cd k8s
             kustomize edit set image goapp=josealceu/argocd:$TESTE
             cat kustomization.yaml
+      - name: Push Git Commit
+        run: |
+                    git config --local user.email "action@github.com"
+                    git config --local user.name "Deploy Action"
+                    git commit -am "change image tag"
+            
+      - name: push
+        uses: ad-m/github-push-action@master
+                
+            
+            
 
 
                     
