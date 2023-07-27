@@ -3,7 +3,7 @@ name: Minha Action do GitHub
 on:
   push:
     branches:
-      - master  # Ajuste de acordo com a branch desejada
+      - master # Ajuste de acordo com a branch desejada
 
 jobs:
   buscar-secret:
@@ -13,20 +13,8 @@ jobs:
     - name: Checkout do repositório
       uses: actions/checkout@v2
 
-    - name: Configurar o Vault
-      run: |
-        # Configurar o Vault URL e token
-        echo "https://vault.lindaocom.br" > VAULT_ADDR
-        echo "hvs.lrxWulp6MfC5RuadxJ8dSJ8a" > VAULT_TOKEN
-
-    - name: Buscar a secret do Vault
-      run: |
-        # Utilize o CLI do Vault para buscar a secret desejada
-        # Substitua "MINHA_SECRET" pelo nome do campo que você deseja buscar na secret
-        teste=$(vault kv get -field=teste secret/production)
-
-    - name: Exibir a secret
-      run: |
-        # Exibir a secret que foi buscada do Vault
-        echo "Minha secret: $teste"
-
+    - name: Configurar o Vault GitHub Action
+      uses: hashicorp/vault-action@v2.4.0
+      with:
+        url: https://vault.axonlab.com.br
+        token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
