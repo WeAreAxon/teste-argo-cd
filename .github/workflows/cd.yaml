@@ -20,10 +20,12 @@ jobs:
 
       - name: Exibir a secret
         run: |  
+            cd k8s
             echo "Minha linda secret: $TESTE" >> text.txt
             cat text.txt
       - name: Push Git Commit
         run: |
+                    git add .
                     git config --local user.email "action@github.com"
                     git config --local user.name "Deploy Action"
                     git commit -am "change image tag"
