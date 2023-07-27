@@ -17,7 +17,10 @@ jobs:
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
                     secret/production teste | TESTE
-                    
+      - name: kustomize
+        uses: imranismail/setup-kustomize@v1
+        with:
+            kustomize_version: v3.6.1
       - name: Exibir a secret
         run: |  
             echo "Minha linda secret: $TESTE"
