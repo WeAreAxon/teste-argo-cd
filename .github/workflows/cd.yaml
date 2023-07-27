@@ -7,9 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Retrieve secret from Vault
-        uses: hashicorp/vault-action@v2.4.0
+        uses: hashicorp/vault-action@v2.7.3
         with:
             method: github
             url: https://vault.axonlab.com.br
             githubToken: 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
-            secrets: secrets/data/production teste | TESTE
+            secrets: |
+                    secrets/data/production teste | TESTE
+                    
