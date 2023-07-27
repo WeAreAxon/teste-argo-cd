@@ -18,6 +18,11 @@ jobs:
       - name: Exibir a secret
         run: |  
             echo "Minha linda secret: $TESTE"
+            cd k8s
+            kustomize edit set image goapp=josealceu/argocd:$TESTE
+            cat kustomization.yaml
+
+
                     
         
                     
