@@ -17,7 +17,7 @@ jobs:
                     
       - name: Exibir a secret
         run: |  
-            echo "Minha secret: TESTE
+            echo "Minha secret: $TESTE"
                     
         
                     
