@@ -6,8 +6,7 @@ jobs:
   retrieve-secret:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      contents: read
+      id-token: read
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
@@ -18,6 +17,14 @@ jobs:
             role: deployment-processes-policy
             secrets: secret/data/apikeys/deploymentServer kv
 
-            
-                    
-            
+      - name: Use secret from Vault
+        run: |
+          # This step has access to the secret retrieved above; see hashicorp/vault-action for more details.
+
+      - name: Revoke token
+        # This step always runs at the end regardless of the previous steps result
+        if: always()
+        run: |
+          curl -X POST -sv -H "X-Vault-Token: ${{ env.VAULT_TOKEN }}" \
+            https://vault.axonlab.com.br/v1/auth/token/revoke-self
+                
