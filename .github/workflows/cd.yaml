@@ -7,14 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
+      contents: read
     steps:
       - name: Retrieve secret from Vault
         uses: hashicorp/vault-action@v2.4.0
         with:
             method: jwt
             url: https://vault.axonlab.com.br
-            role: deployment-processes-policy
-            secrets: secret/data/apikeys/deploymentServer kv
+            role: myproject-production
+            secrets: secret/data/production/teste kv
             
       - name: Use secret from Vault
         run: |
