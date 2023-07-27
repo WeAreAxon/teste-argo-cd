@@ -1,22 +1,35 @@
-name: Minha Action do GitHub
-
 on:
-  push:
-    branches:
-      - master # Ajuste de acordo com a branch desejada
-
+  workflow_dispatch:
+name: Hello World
+env:
+  hashiUrl: https://securebox.org
+  roleName: gha-test-role
+  audience: gha-medium
+  namespace: cicd
 jobs:
-  buscar-secret:
+  hello:
     runs-on: ubuntu-latest
-
+    name: Says Hello World
+    permissions:
+        contents: read
+        id-token: write
     steps:
-    - name: Checkout do repositório
-      uses: actions/checkout@v2
-
-    - name: Configurar o Vault GitHub Action
-      uses: hashicorp/vault-action@v2.4.0
+    - name: Say it
+      run: echo "Hello World"
+    - name: perform token run
+      run: |
+        echo $(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=gha-medium" | base64)
+      shell: bash
+    - name: Retreive Secrets
+      id: retrieve-secrets
+      uses: hashicorp/vault-action@v2.4.1
       with:
-        url: https://vault.axonlab.com.br
-        token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
+        url: ${{ env.hashiUrl }}
+        role: ${{ env.roleName }}
+        method: jwt
+        jwtGithubAudience: ${{ env.audience }}
+        namespace: ${{ env.namespace }}
+        tlsSkipVerify: false
+        exportEnv: true
         secrets: |
-            
+          secret/data/apikeys deploymentServer | DEPLOYMENT_KEY
