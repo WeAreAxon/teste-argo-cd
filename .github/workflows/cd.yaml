@@ -3,14 +3,12 @@ on:
     push:
             branches: master
 jobs:
-  retrieve-secret:
+  hello:
     runs-on: ubuntu-latest
-
+    name: Says Hello World
+    permissions:
+        contents: read
+        id-token: write
     steps:
-      - name: Retrieve secret from Vault
-        uses: hashicorp/vault-action@v2.4.0
-        with:
-            url: https://vault.axonlab.com.br/
-            token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
-            secrets: |
-                    secret/data/apikeys deploymentServer ;
+    - name: Say it
+      run: echo "Hello World"
