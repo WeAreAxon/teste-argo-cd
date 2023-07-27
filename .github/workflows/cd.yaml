@@ -11,7 +11,7 @@ jobs:
         with:
             method: github
             url: https://vault.axonlab.com.br
-            githubToken: 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
+            githubToken: ${{ secrets.TOKEN }}
             secrets: |
                     secrets/data/production teste | TESTE
                     
