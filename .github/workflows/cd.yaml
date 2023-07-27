@@ -16,8 +16,8 @@ jobs:
     - name: Configurar o Vault
       run: |
         # Configurar o Vault URL e token
-        echo "https://vault.lindaocom.br/" > VAULT_ADDR
-        echo "123456" > VAULT_TOKEN
+        echo "https://vault.lindaocom.br" > VAULT_ADDR
+        echo "hvs.lrxWulp6MfC5RuadxJ8dSJ8a" > VAULT_TOKEN
 
     - name: Buscar a secret do Vault
       run: |
