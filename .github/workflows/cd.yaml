@@ -18,3 +18,5 @@ jobs:
       with:
         url: https://vault.axonlab.com.br
         token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
+        secrets: |
+            secret/data/production teste | DEPLOYMENT_KEY
