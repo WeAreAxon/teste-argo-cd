@@ -2,31 +2,15 @@ name: CD
 on:
     push:
             branches: master
-env:
-  hashiUrl: https://vault.axonlab.com.br/
-  roleName: myproject-production
 jobs:
-  hello:
+  retrieve-secret:
     runs-on: ubuntu-latest
-    name: Says Hello World
-    permissions:
-        contents: read
-        id-token: write
+
     steps:
-    - name: Say it
-      run: echo "Hello World"
-    - name: perform token run
-      run: |
-        echo $(curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=gha-medium" | base64)
-      shell: bash
-    - name: Retreive Secrets
-      id: retrieve-secrets
-      uses: hashicorp/vault-action@v2.4.1
-      with:
-        url: ${{ env.hashiUrl }}
-        role: ${{ env.roleName }}
-        method: jwt
-        tlsSkipVerify: false
-        exportEnv: true
-        secrets: |
-          secret/data/production teste | DEPLOYMENT_KEY
+      - name: Retrieve secret from Vault
+        uses: hashicorp/vault-action@v2.4.0
+        with:
+            url: https://vault.axonlab.com.br
+            token: hvs.lrxWulp6MfC5RuadxJ8dSJ8a
+            secrets: |
+                    secret/data/production teste | DEPLOYMENT_KEY
