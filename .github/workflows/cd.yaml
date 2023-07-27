@@ -15,3 +15,9 @@ jobs:
             secrets: |
                     secret/production teste | TESTE
                     
+      - name: Exibir a secret
+        run: |  
+            echo "Minha secret: TESTE
+                    
+        
+                    
