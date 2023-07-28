@@ -21,7 +21,7 @@ jobs:
       - name: Build image and push to docker hub
         uses: docker/build-push-action@v1.1.0
         with:
-            build_args: mysql_database = $TESTE
+            build_args: mysql_database=${{secrets.DOCKER_PASSWORD }}
             username: josealceu
             password: ${{secrets.DOCKER_PASSWORD }}
             repository: josealceu/argocd
