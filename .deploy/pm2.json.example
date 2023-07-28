@@ -1,0 +1,80 @@
+{
+	"env": {
+		"NODE_ENV": "production",
+
+		"FRONT_END_ROUTE": "localhost:5100",
+		"BACK_END_ROUTE": "localhost:5400",
+		"NODERED_ROUTE": "connect_node_red:1880",
+		"QUEUEHANDLER_ROUTE": "localhost:3050",
+
+		"MYSQL_PORT": "3306",
+		"MYSQL_USER": "",
+		"MYSQL_PASSWORD": "",
+		"MYSQL_DATABASE": "",
+
+		"MONGODB_URI": "mongodb+srv://<user>:<pwd>@<host>.mongodb.net/?retryWrites=true&w=majority",
+
+		"JWT_SECRET": "v3ry_s3cur3",
+
+		"MAIL_HOST": "",
+		"NODEMAILER_USER": "",
+		"NODEMAILER_PASS": ""
+	},
+	"apps": [
+		{
+			"name": "connect-gateway:3000",
+			"script": "../server/dist/gateway/index.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"PORT_PROXY": "3000"
+			},
+			"watch": false,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-api:5400",
+			"script": "../server/dist/api/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"PORT_API_CAPTURE": "5400"	
+			},
+			"watch": false,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-ui:5100",
+			"script": "../server/dist/webserver/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"PORT_WEB_SERVER": "5100"
+			},
+			"watch": false,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-dbinsert:3060",
+			"script": "../server/dist/db-insert/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"min_uptime": 5000,
+			"watch": false,
+			"env": {
+				"PORT_DB_INSERT": "3060"
+			}
+		},
+		{
+			"name": "connect-queuehandler:3050",
+			"script": "../server/dist/queue-handler/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"min_uptime": 5000,
+			"watch": false,
+			"env": {
+				"PORT_QUEUE_HANDLER": "3050"
+			}
+		}
+	]
+}

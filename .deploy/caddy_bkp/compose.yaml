@@ -1,0 +1,26 @@
+version: "3.9"
+
+networks:
+  connect:
+
+volumes:
+  caddy_data:
+  caddy_config:
+
+services:
+
+  caddy_server:
+    container_name: caddy_server
+    hostname: caddy_server
+    image: caddy:alpine
+    restart: unless-stopped
+    networks:
+      - connect
+    volumes:
+      - /home/axon/apps/.volumes/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"

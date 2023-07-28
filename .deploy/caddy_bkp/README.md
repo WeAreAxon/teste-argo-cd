@@ -1,0 +1,1 @@
+No servidor, mover `Caddyfile` e `compose.yaml` para `/home/axon/apps/caddy`

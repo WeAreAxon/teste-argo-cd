@@ -1,0 +1,34 @@
+{
+  "name": "connect_dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build:stage": "export VITE_BACK=https://staging.connect.axonlab.com.br&& vite build --emptyOutDir",
+    "build:test": "export VITE_BACK=https://testing.connect.axonlab.com.br&& vite build --emptyOutDir",
+    "build:prod": "export VITE_BACK=https://connect.axontechnology.com.br&& vite build --emptyOutDir",
+    "build:dev": "set VITE_BACK=http://localhost:5100&& vite build --emptyOutDir",
+    "preview": "vite preview",
+    "start": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.2",
+    "@types/chart.js": "^2.9.37",
+    "autoprefixer": "^10.4.12",
+    "dotenv": "^16.0.3",
+    "postcss": "^8.4.16",
+    "svelte": "^3.49.0",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^3.1.8",
+    "vite": "^3.1.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.2.1",
+    "chartjs-adapter-date-fns": "^3.0.0",
+    "chartjs-adapter-luxon": "^1.3.1",
+    "chartjs-plugin-datalabels": "^2.2.0",
+    "progressbar.js": "^1.1.0",
+    "svelte-spa-router": "^3.3.0"
+  }
+}

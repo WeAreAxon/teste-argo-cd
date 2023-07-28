@@ -1,0 +1,84 @@
+
+
+SESSION:DATE-FORMAT = "dmy".
+
+DEFINE VARIABLE itens_familia AS CHAR.
+DEFINE VARIABLE data_inicial AS DATE.
+DEFINE VARIABLE data_final AS DATE.
+DEFINE VARIABLE mes_atual AS INTEGER.
+DEFINE VARIABLE ano_atual AS INTEGER.
+DEFINE VARIABLE mes_final AS INTEGER.
+DEFINE VARIABLE ano_final AS INTEGER.
+
+itens_familia = "01".
+mes_atual = MONTH(TODAY).
+ano_atual = YEAR(TODAY).
+IF mes_atual = 12 THEN DO:
+	mes_final = 1.
+	ano_final = ano_atual + 1.
+END.
+ELSE DO:
+	mes_final = mes_atual + 1.
+	ano_final = ano_atual.
+END.
+data_inicial = DATE(1, 1, 1900).
+data_final = DATE(mes_final, 1, ano_final).
+
+DEFINE VARIABLE temp-qt-pendente LIKE ped-ent.qt-pedida.
+DEFINE VARIABLE temp-qt-embarque LIKE ped-ent.qt-alocada.
+DEFINE VARIABLE temp-preco-total LIKE ped-item.vl-preuni.
+
+DEFINE VARIABLE output_file AS CHAR.
+output_file = "C:\TOTVS\Progress\oework\axon_index_csv_carteira.csv".
+
+OUTPUT TO VALUE(output_file).
+EXPORT DELIMITER ";"
+    "Cliente"          /* ped-ent.nome-abrev  */
+    "Pedido"           /* ped-ent.nr-pedcli   */
+    "Item"             /* ped-ent.it-codigo   */
+    "Data entrega"     /* ped-ent.dt-entrega  */
+    "Qtd pendente"     /* temp-qt-pendente    */
+    "Qtd programa"     /* ped-ent.qt-pedida   */
+    "Qtd atendida"     /* ped-ent.qt-atendida */
+    "Qtd alocada"      /* ped-ent.qt-alocada  */
+    "Qtd embarque"     /* temp-qt-embarque    */
+    "Tipo atendimento" /* ped-ent.tipo-atend  */
+    "Tipo entrega"     /* ped-ent.tp-entrega  */
+    "Preco unit"       /* ped-item.vl-preuni  */
+    "Preco total".     /* temp-preco-total    */
+
+FOR EACH ped-venda NO-LOCK
+        WHERE (ped-venda.cod-sit-ped = 1 OR ped-venda.cod-sit-ped = 2),
+    EACH ped-ent OF ped-venda NO-LOCK
+        WHERE ped-ent.it-codigo BEGINS itens_familia
+        AND   ped-ent.dt-entrega >= data_inicial
+        AND   ped-ent.dt-entrega < data_final
+        AND   ped-ent.qt-pedida > ped-ent.qt-atendida,
+    EACH ped-item OF ped-venda NO-LOCK
+        WHERE ped-item.it-codigo = ped-ent.it-codigo
+        AND   ped-item.nome-abrev = ped-ent.nome-abrev:
+
+    ASSIGN temp-qt-pendente = ped-ent.qt-pedida - ped-ent.qt-atendida.
+    ASSIGN temp-qt-embarque = ped-ent.qt-alocada - ped-ent.qt-atendida.
+    ASSIGN temp-preco-total = ped-item.vl-preuni * temp-qt-pendente.
+	
+    EXPORT DELIMITER ";"
+        ped-ent.nome-abrev
+        ped-ent.nr-pedcli
+        ped-ent.it-codigo
+        ped-ent.dt-entrega
+        temp-qt-pendente
+        ped-ent.qt-pedida
+        ped-ent.qt-atendida
+        ped-ent.qt-alocada
+        temp-qt-embarque
+        ped-ent.tipo-atend
+        ped-ent.tp-entrega
+        ped-item.vl-preuni
+        temp-preco-total.
+        
+END.
+
+OUTPUT CLOSE.
+
+MESSAGE "Programa de entregas salvo em " + output_file VIEW-AS ALERT-BOX.

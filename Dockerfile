@@ -1,10 +1,18 @@
-FROM golang:1.17 as build
-
+FROM keymetrics/pm2:18-alpine
+ARG mysql_host
+ENV MYSQL_HOST $mysql_host
 WORKDIR /app
 COPY . .
-RUN CGO_ENABLED=0 go build -o server main.go
 
-FROM alpine:3.12
-WORKDIR /app
-COPY --from=build /app/server .
-CMD [ "./server" ]
+# RUN pm2 install pm2-auto-pull
+# RUN pm2 set pm2-auto-pull:interval 120000
+RUN npm install -g typescript
+
+WORKDIR /app/server
+RUN npm install && npm run build
+WORKDIR /app/ui
+RUN npm install && npm run build
+
+WORKDIR /app/.deploy
+
+CMD [ "pm2-runtime", "start", "pm2.json" ]
