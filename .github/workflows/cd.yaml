@@ -1,7 +1,7 @@
 name: CD
 on:
     push:
-            branches: master
+            branches: teste
 jobs:
   retrieve-secret:
     runs-on: ubuntu-latest
@@ -16,7 +16,18 @@ jobs:
             url: https://vault.axonlab.com.br
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
-                    secret/production teste | TESTE
+                    secret/production teste | MYSQL_DATABASE
+
+      - name: Build image and push to docker hub
+        uses: docker/build-push-action@v4.1.1
+        with:
+            build-args: |
+                    mysql_database=$MYSQL_DATABASE
+                    mysql_host=josesao
+            username: josealceu
+            password: ${{secrets.DOCKER_PASSWORD }}
+            repository: josealceu/argocd
+            tags: teste-jose
 
       - name: Exibir a secret
         run: |  
