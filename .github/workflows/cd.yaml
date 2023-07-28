@@ -16,11 +16,12 @@ jobs:
             url: https://vault.axonlab.com.br
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
-                    secret/production teste | teste
+                    secret/production teste | TESTE
+
       - name: Build image and push to docker hub
         uses: docker/build-push-action@v1.1.0
         with:
-            build_args: mysql_database=$teste
+            build_args: mysql_database = $TESTE
             username: josealceu
             password: ${{secrets.DOCKER_PASSWORD }}
             repository: josealceu/argocd
