@@ -3,46 +3,40 @@ on:
     push:
             branches: master
 jobs:
-    build:
-        name: build
-        runs-on: ubuntu-latest
-        steps:
-            -   name: checkout
-                uses: actions/checkout@v2
+  retrieve-secret:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
 
-            -   name: Build image and push to docker hub
-                uses: docker/build-push-action@v1.1.0
-                with:
-                    username: josealceu
-                    password: ${{secrets.DOCKER_PASSWORD }}
-                    repository: josealceu/argocd
-                    tags: ${{github.sha }}
-                
-    deploy:
-        name: deploy
-        runs-on: ubuntu-latest
-        needs: build
-        steps:
-            -   name: checkout
-                uses: actions/checkout@v2
-            -   name: kustomize
-                uses: imranismail/setup-kustomize@v1
-                with:
-                    kustomize_version: v3.6.1
-            -   name: update k8s
-                run: |
-                    cd k8s
-                    kustomize edit set image goapp=josealceu/argocd:${{github.sha }}
-                    cat kustomization.yaml
-            -   name: Push Git Commit
-                run: |
+      - name: Retrieve secret from Vault
+        uses: hashicorp/vault-action@v2.7.3
+        with:
+            method: github
+            url: https://vault.axonlab.com.br
+            githubToken: ${{ secrets.TOKEN }}
+            secrets: |
+                    secret/production teste | TESTE
+
+      - name: Exibir a secret
+        run: |  
+            cd k8s
+            echo "Minha linda secret: $TESTE" >> text.txt
+            cat text.txt
+      - name: Push Git Commit
+        run: |
+                    git add .
                     git config --local user.email "action@github.com"
                     git config --local user.name "Deploy Action"
                     git commit -am "change image tag"
             
-            -   name: push
-                uses: ad-m/github-push-action@master
+      - name: push
+        uses: ad-m/github-push-action@master
                 
             
-                    
             
+
+
+                    
+        
+                    
