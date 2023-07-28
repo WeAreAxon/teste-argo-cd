@@ -37,7 +37,7 @@
                 "MYSQL_PORT": "3306",
                 "MYSQL_USER": "connect",
                 "MYSQL_PASSWORD": "bpWAE7eZlKPBJMP",
-                "MYSQL_DATABASE": "${MYSQL_DATABASE}",
+                "MYSQL_DATABASE": process.env.MYSQL_DATABASE,
                 "MONGODB_URI": "mongodb://axon:3lirIlN43qdhjLRU@134.122.115.13:27017/?retryWrites=true&w=majority"
             }
         },
