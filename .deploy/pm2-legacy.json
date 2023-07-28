@@ -1,0 +1,130 @@
+{
+	"apps": [
+		{
+			"name": "connect-proxy:3000",
+			"script": "../server/dist/gateway/index.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"NODE_ENV": "production",
+				"FRONT_END_ROUTE": "http://localhost:5100",
+				"BACK_END_ROUTE": "http://localhost:5400",
+				"NODERED_ROUTE": "http://192.168.103.10:1880",
+				"PORT_PROXY": 3000
+			},
+			"env_development": {
+				"NODE_ENV": "development",
+				"FRONT_END_ROUTE": "http://localhost:9003",
+				"BACK_END_ROUTE": "http://localhost:5800",
+				"NODERED_ROUTE": "http://192.168.103.9:1880",
+				"PORT_PROXY": 5100
+			},
+			"watch": true,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-api:5400",
+			"script": "../server/dist/api/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"NODE_ENV": "production",
+				"PORT_API_CAPTURE": 5400,
+				"MYSQL_HOST": "192.168.105.11",
+				"MYSQL_PORT": "3306",
+				"MYSQL_USER": "dev",
+				"MYSQL_PASSWORD": "Mart@123_dev",
+				"MYSQL_DATABASE": "Connect_Connect_testess",
+				"MONGODB_URI": "mongodb://localhost:27017/",
+				"MAIL_HOST": "smtp-mail.outlook.com",
+				"NODEMAILER_USER": "comunica@martiaco.com.br",
+				"NODEMAILER_PASS": "Cok42166",
+				"JWT_SECRET": "e24%a011fa1bd05e1d4753d2245b6dd84b610316e-e24@a011fa1bd05e1d4753d2245b6dd84b610316e-e24$a011fa1bd05e1d4753d2245b6dd84b610316e",
+				"BACK_END_ROUTE": "http://localhost:5400",
+				"QUEUEHANDLER_ROUTE": "http://localhost:3070"
+			},
+			"env_development": {
+				"NODE_ENV": "development",
+				"MYSQL_HOST": "192.168.105.11",
+				"MYSQL_PORT": "3306",
+				"MYSQL_USER": "dev",
+				"MYSQL_PASSWORD": "Mart@123_dev",
+				"MYSQL_DATABASE": "Connect_testes",
+				"MONGODB_URI": "mongodb://localhost:27017/",
+				"MAIL_HOST": "smtp-mail.outlook.com",
+				"NODEMAILER_USER": "comunica@martiaco.com.br",
+				"NODEMAILER_PASS": "Cok42166",
+				"JWT_SECRET": "e24%a011fa1bd05e1d4753d2245b6dd84b610316e-e24@a011fa1bd05e1d4753d2245b6dd84b610316e-e24$a011fa1bd05e1d4753d2245b6dd84b610316e",
+				"BACK_END_ROUTE": "http://localhost:5800",
+				"QUEUEHANDLER_ROUTE": "http://localhost:3050",
+				"PORT_API_CAPTURE": 5800
+			},
+			"watch": true,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-ui:5100",
+			"script": "../server/dist/webserver/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"env": {
+				"NODE_ENV": "production",
+				"PORT": 5100
+			},
+			"env_development": {
+				"NODE_ENV": "development",
+				"PORT_WEB_SERVER": 9003
+			},
+			"watch": true,
+			"min_uptime": 5000
+		},
+		{
+			"name": "connect-dbinsert:3060",
+			"script": "../server/dist/db-insert/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"min_uptime": 5000,
+			"watch": true,
+			"env": {
+				"NODE_ENV": "production",
+				"MYSQL_HOST": "192.168.105.11",
+				"MYSQL_PORT": "3306",
+				"MYSQL_USER": "dev",
+				"MYSQL_PASSWORD": "Mart@123_dev",
+				"MYSQL_DATABASE": "Connect_Connect_testess",
+				"MONGODB_URI": "mongodb://localhost:27017/",
+				"PORT_DB_INSERT": 3080,
+				"QUEUEHANDLER_ROUTE": "http://localhost:3070"
+			},
+			"env_development": {
+				"NODE_ENV": "development",
+				"MYSQL_HOST": "192.168.105.11",
+				"MYSQL_PORT": "3306",
+				"MYSQL_USER": "dev",
+				"MYSQL_PASSWORD": "Mart@123_dev",
+				"MYSQL_DATABASE": "Connect_testes",
+				"MONGODB_URI": "mongodb://localhost:27017/",
+				"PORT_DB_INSERT": 3060,
+				"QUEUEHANDLER_ROUTE": "http://localhost:3050"
+			}
+		},
+		{
+			"name": "connect-queuehandler:3050",
+			"script": "../server/dist/queue-handler/server.js",
+			"exec_mode": "fork",
+			"instances": 1,
+			"min_uptime": 5000,
+			"watch": true,
+			"env": {
+				"NODE_ENV": "production",
+				"PORT_QUEUE_HANDLER": 3070,
+				"MONGO_URL": "mongodb://localhost:27017/"
+			},
+			"env_development": {
+				"NODE_ENV": "development",
+				"MONGODB_URI": "mongodb://localhost:27017/",
+				"PORT_QUEUE_HANDLER": 3050
+			}
+		}
+	]
+}
