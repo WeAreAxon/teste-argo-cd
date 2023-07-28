@@ -27,8 +27,8 @@ jobs:
       - name: Build image and push to docker hub
         uses: docker/build-push-action@v4.1.1
         with:
-            secrets: key=cau
-            build-args: mysql_database="$TESTE"
+            build-args: |
+                mysql_database=$TESTE
             push: true
             tags: josealceu/argocd:latest
 
