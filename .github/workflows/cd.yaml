@@ -30,7 +30,7 @@ jobs:
             tags: teste-jose
 
       - name: Exibir a secret
-        run: |  
+        run: |
             cd k8s
             echo "Minha linda secret: $TESTE" >> text.txt
             cat text.txt

@@ -1,6 +1,8 @@
 FROM keymetrics/pm2:18-alpine
 ARG mysql_host
+ARG mysql_host
 ENV MYSQL_HOST $mysql_host
+ENV MYSQL_DATABASE $MYSQL_DATABASE
 WORKDIR /app
 COPY . .
 
