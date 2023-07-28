@@ -26,8 +26,7 @@ jobs:
 
       - name: Build and tag Docker image
         run: |
-            docker build --build-arg mysql_database=$TESTE
-                     -t josealceu/argocd:latest.
+            docker build --build-arg mysql_database=$TESTE -t josealceu/argocd:latest .
 
       - name: Push Docker image to DockerHub
         run: |
