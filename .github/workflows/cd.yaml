@@ -17,15 +17,19 @@ jobs:
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
                     secret/production teste | TESTE
+                    
+      - name: Authentication DockerHub
+        uses: docker/login-action@v2.1.0
+        with:
+          username: josealceu
+          password: ${{secrets.DOCKER_PASSWORD }}
 
       - name: Build image and push to docker hub
-        uses: docker/build-push-action@v1.1.0
+        uses: docker/build-push-action@v4.1.1
         with:
-            build_args: mysql_database=${{secrets.DOCKER_PASSWORD }}
-            username: josealceu
-            password: ${{secrets.DOCKER_PASSWORD }}
-            repository: josealceu/argocd
-            tags: latest
+            build-args: mysql_database=$TESTE
+            push: true
+            tags: josealceu/argocd:latest
 
       - name: Exibir a secret
         run: |
