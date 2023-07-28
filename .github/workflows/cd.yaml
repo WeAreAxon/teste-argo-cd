@@ -1,4 +1,4 @@
-name: CDi
+name: CD3
 on:
     push:
             branches: master
