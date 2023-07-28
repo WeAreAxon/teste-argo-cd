@@ -17,6 +17,16 @@ jobs:
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
                     secret/production teste | MYSQL_DATABASE
+      - name: Build image and push to docker hub
+        uses: docker/build-push-action@v4.1.1
+        with:
+            build-args: |
+                    mysql_database=$MYSQL_DATABASE
+                    mysql_host=josesao
+            username: josealceu
+            password: ${{secrets.DOCKER_PASSWORD }}
+            repository: josealceu/argocd
+            tags: ${{github.sha }}
 
 
             
