@@ -27,23 +27,7 @@ jobs:
             username: josealceu
             password: ${{secrets.DOCKER_PASSWORD }}
             repository: josealceu/argocd
-            tags: teste-jose
-
-      - name: Exibir a secret
-        run: |
-            cd k8s
-            echo "Minha linda secret: $TESTE" >> text.txt
-            cat text.txt
-      - name: Push Git Commit
-        run: |
-                    git add .
-                    git config --local user.email "action@github.com"
-                    git config --local user.name "Deploy Action"
-                    git commit -am "change image tag"
-            
-      - name: push
-        uses: ad-m/github-push-action@master
-                
+            tags: ${{github.sha }}
             
             
 
