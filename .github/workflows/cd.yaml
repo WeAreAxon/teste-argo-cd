@@ -24,13 +24,14 @@ jobs:
           username: josealceu
           password: ${{secrets.DOCKER_PASSWORD }}
 
-      - name: Build image and push to docker hub
-        uses: docker/build-push-action@v4.1.1
-        with:
-            build-args: |
-                mysql_database=$TESTE
-            push: true
-            tags: josealceu/argocd:latest
+      - name: Build and tag Docker image
+        run: |
+            docker build --build-arg mysql_database=$TESTE
+                     -t josealceu/argocd:latest.
+
+      - name: Push Docker image to DockerHub
+        run: |
+            docker push josealceu/argocd:latest
 
       - name: Exibir a secret
         run: |
