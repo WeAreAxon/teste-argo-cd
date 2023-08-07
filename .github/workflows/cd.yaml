@@ -1,7 +1,7 @@
 name: CD3
 on:
     push:
-        branches: master-temp
+        branches: master
 jobs:
   retrieve-secret:
     runs-on: ubuntu-latest
