@@ -16,7 +16,6 @@ jobs:
             url: https://vault.axonlab.com.br
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
-                    secret/connect-testing teste | TESTE
                     secret/connect-testing JWT_SECRET | JWT_SECRET
                     secret/connect-testing MYSQL_HOST | MYSQL_HOST
                     secret/connect-testing MYSQL_DATABASE | MYSQL_DATABASE
