@@ -34,4 +34,4 @@ RUN npm install && npm run build
 
 WORKDIR /app/.deploy
 
-CMD [ "pm2", "start", "ecosystem.config.js" ]
+CMD [ "pm2-runtime", "start", "ecosystem.config.js" ]
