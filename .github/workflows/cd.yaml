@@ -16,26 +16,46 @@ jobs:
             url: https://vault.axonlab.com.br
             githubToken: ${{ secrets.TOKEN }}
             secrets: |
-                    secret/production teste | TESTE
+                    secret/connect-testing teste | TESTE
+                    secret/connect-testing JWT_SECRET | JWT_SECRET
+                    secret/connect-testing MYSQL_HOST | MYSQL_HOST
+                    secret/connect-testing MYSQL_DATABASE | MYSQL_DATABASE
+                    secret/connect-testing MYSQL_USER | MYSQL_USER
+                    secret/connect-testing MYSQL_PASSWORD | MYSQL_PASSWORD
+                    secret/connect-testing MONGODB_URI | MONGODB_URI
+                    secret/connect-testing MAIL_HOST | MAIL_HOST
+                    secret/connect-testing NODEMAILER_USER | NODEMAILER_USER
+                    secret/connect-testing NODEMAILER_PASS | NODEMAILER_PASS
+
                     
       - name: DockerHub Authentication
         uses: docker/login-action@v2.1.0
         with:
-          username: josealceu
+          username: wiilianwellner
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and tag Docker image
         run: |
-            docker build --build-arg mysql_database=$TESTE -t josealceu/argocd:latest .
+            docker build \
+              --build-arg mysql_host=$MYSQL_HOST \
+              --build-arg mysql_database=$MYSQL_DATABASE \
+              --build-arg mysql_user=$MYSQL_USER \
+              --build-arg mysql_password=$MYSQL_PASSWORD \
+              --build-arg mongodb_uri=$MONGODB_URI \
+              --build-arg mail_host=$MAIL_HOST \
+              --build-arg nodemailer_user=$NODEMAILER_USER \
+              --build-arg nodemailer_pass=$NODEMAILER_PASS \
+              --build-arg jwt_secret=$JWT_SECRET \
+                -t wiilianwellner/connect:testing .
 
       - name: Push Docker image to DockerHub
         run: |
-            docker push josealceu/argocd:latest
+            docker push wiilianwellner/connect:testing
 
       - name: Exibir a secret
         run: |
             cd k8s
-            echo "Minha linda secret: $TESTE" >> text.txt
+            echo "Minha linda secret: $JWT_SECRET $MYSQL_HOST $MYSQL_DATABASE $MYSQL_USER $MYSQL_PASSWORD $MONGODB_URI " >> text.txt
             cat text.txt
       - name: Push Git Commit
         run: |
