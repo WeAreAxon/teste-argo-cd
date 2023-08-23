@@ -10,3 +10,4 @@ Minha linda secret: 683OEWtQBb5758c1-c2efc4fd678IUGHt5bfa630d74-b8a004e342aa507b
 Minha linda secret: 683OEWtQBb5758c1-c2efc4fd678IUGHt5bfa630d74-b8a004e342aa507b9f5PL connect_mysql57 connect_prod connect bpWAE7eZlKPBJMP mongodb://axon:3lirIlN43qdhjLRU@134.122.115.13:27017/?retryWrites=true&w=majority 
 teste
 Minha linda secret: 683OEWtQBb5758c1-c2efc4fd678IUGHt5bfa630d74-b8a004e342aa507b9f5PL 192.168.97.250 connect_testing connect bpWAE7eZlKPBJMP mongodb://axon:3lirIlN43qdhjLRU@134.122.115.13:27017/?retryWrites=true&w=majority 
+Minha linda secret: 683OEWtQBb5758c1-c2efc4fd678IUGHt5bfa630d74-b8a004e342aa507b9f5PL 192.168.97.250 connect_testing connect bpWAE7eZlKPBJMP mongodb://axon:3lirIlN43qdhjLRU@134.122.115.13:27017/?retryWrites=true&w=majority 
