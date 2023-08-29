@@ -72,7 +72,7 @@
 </script>
 
 <svelte:head>
-	<title>5Connect</title>
+	<title>6Connect</title>
 </svelte:head>
 
 <div class="content">
