@@ -16,7 +16,7 @@ jobs:
             
           github-token: ${{ github.token }}
           webhook-uri: ${{ secrets.MICROSOFT_TEAMS_WEBHOOK_URI }}
-          timezone: UTC3
+          timezone: America/Sao_Paulo
           card-layout-exit: cozy
                     
         
